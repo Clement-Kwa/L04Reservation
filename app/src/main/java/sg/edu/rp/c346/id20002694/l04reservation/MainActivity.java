@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Button reset;
 
     CheckBox smoke;
+    //clement
 
     EditText name;
     EditText num;
