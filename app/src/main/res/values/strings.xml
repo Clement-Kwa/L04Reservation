@@ -7,6 +7,7 @@
     <string name="smoke">Smoking table</string>
     <string name="reset">Reset</string>
     <string name="submit">Submit</string>
-
+    <string name="time">Choose timing (Note: Times should be between 8AM and 8:59PM)</string>
+    <string name="date">Choose date (Note: Must not be a past date)</string>
 
 </resources>

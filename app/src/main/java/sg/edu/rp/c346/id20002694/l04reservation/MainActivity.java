@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         tp = findViewById(R.id. tp);
         dp = findViewById(R.id. dp);
+        //this will force set the dp to current date. It will be impossible to enter a older date
+        dp.setMinDate(System.currentTimeMillis() - 1000);
 
         submit = findViewById(R.id. btnSub);
         reset = findViewById(R.id. btnReset);
@@ -68,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String result = "";
                 String date = (dp.getDayOfMonth()+"/"+(dp.getMonth()+1)+"/"+dp.getYear());
-                String time = String.format("%02d:%02d", tp.getCurrentHour(),tp.getCurrentMinute());
+
+                String formattedTime = String.format("%02d:%02d", tp.getCurrentHour(),tp.getCurrentMinute());
 
                 //check for empty fields
                 //need to make new vars for ease of reading
@@ -76,19 +79,32 @@ public class MainActivity extends AppCompatActivity {
                 String b = num.getText().toString();
                 String c = size.getText().toString();
 
-                if( a.isEmpty() ||b.isEmpty()||c.isEmpty() ){
-                    //if fields are empty
-                    result+="Fill in all fields to continue.";
+                if( !a.isEmpty() || !b.isEmpty()|| !c.isEmpty() ){
+
+                        result += "Name: "+name.getText().toString()+", Number: "+ num.getText().toString()+", Group size: "+size.getText().toString()
+                                + ", Date: "+date+", Time: "+formattedTime+", Smoking table: "+smoke.isChecked();
+
                 }
                 else{
-                    //else fields are filled
-                    result += "Name: "+name.getText().toString()+", Number: "+ num.getText().toString()+", Group size: "+size.getText().toString()
-                            + ", Date: "+date+", Time: "+time+", Smoking table: "+smoke.isChecked();
+
+                    result+="Fill in all fields inputs to continue.";
+
                 }
 
                 Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
             }
         });
 
+        tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                if(hourOfDay>21){
+                        tp.setCurrentHour(20);
+                }
+                else if (hourOfDay < 8){
+                    tp.setCurrentHour(20);
+                }
+            }
+        });
     }
 }
