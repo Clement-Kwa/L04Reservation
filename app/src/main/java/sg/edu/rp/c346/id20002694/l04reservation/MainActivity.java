@@ -68,13 +68,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String result = "";
                 String date = (dp.getDayOfMonth()+"/"+(dp.getMonth()+1)+"/"+dp.getYear());
-                String time = tp.getCurrentHour()+":"+tp.getCurrentMinute();
+                String time = String.format("%02d:%02d", tp.getCurrentHour(),tp.getCurrentMinute());
 
-                result += "Name: "+name.getText().toString()+", Number: "+ num.getText().toString()+", Group size: "+size.getText().toString()
-                + ", Date: "+date+", Time: "+time+", Smoking table: "+smoke.isChecked();
+                //check for empty fields
+                //need to make new vars for ease of reading
+                String a = name.getText().toString();
+                String b = num.getText().toString();
+                String c = size.getText().toString();
 
+                if( a.isEmpty() ||b.isEmpty()||c.isEmpty() ){
+                    //if fields are empty
+                    result+="Fill in all fields to continue.";
+                }
+                else{
+                    //else fields are filled
+                    result += "Name: "+name.getText().toString()+", Number: "+ num.getText().toString()+", Group size: "+size.getText().toString()
+                            + ", Date: "+date+", Time: "+time+", Smoking table: "+smoke.isChecked();
+                }
 
-                //plug in string here
                 Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
             }
         });
